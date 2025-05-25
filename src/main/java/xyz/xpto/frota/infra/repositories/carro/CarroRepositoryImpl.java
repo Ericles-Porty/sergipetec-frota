@@ -19,11 +19,12 @@ public class CarroRepositoryImpl implements CarroRepository {
 
 	@Override
 	public Carro salvar(Carro carro) {
-		Long idCarroCriado = carroJpaRepository.inserir(
+		Integer idCarroCriado = carroJpaRepository.inserir(
+				carro.getId(),
 				carro.getQuantidadePortas(),
 				carro.getTipoCombustivel().name());
 
-		return carroJpaRepository.findById(idCarroCriado)
+		return carroJpaRepository.findById(idCarroCriado.longValue())
 				.orElseThrow(() -> new RuntimeException("Erro ao inserir carro"));
 	}
 

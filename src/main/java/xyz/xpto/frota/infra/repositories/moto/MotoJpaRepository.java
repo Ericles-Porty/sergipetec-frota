@@ -1,6 +1,5 @@
 package xyz.xpto.frota.infra.repositories.moto;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,16 +14,17 @@ import xyz.xpto.frota.domain.entities.Moto;
 
 @Repository
 public interface MotoJpaRepository extends JpaRepository<Moto, Long> {
-	@Modifying
 	@Transactional
 	@Query(value = """
-			INSERT INTO moto (cilindrada)
-			VALUES (:cilindrada)
-			RETURNING id_veiculo
+			INSERT INTO moto (veiculo_id, cilindrada)
+			VALUES (:veiculoId, :cilindrada)
+			RETURNING veiculo_id
 			""", nativeQuery = true)
-	Long inserir(@Param("cilindrada") Integer cilindrada);
+	Integer inserir(
+			@Param("veiculoId") Long veiculoId,
+			@Param("cilindrada") Integer cilindrada);
 
-	@Query(value = "SELECT * FROM moto m WHERE m.id_veiculo = :idVeiculo", nativeQuery = true)
+	@Query(value = "SELECT * FROM moto m WHERE m.veiculo_id = :idVeiculo", nativeQuery = true)
 	Optional<Moto> buscarPorId(Long idVeiculo);
 
 	@Query(value = "SELECT * FROM moto m", nativeQuery = true)
@@ -32,7 +32,7 @@ public interface MotoJpaRepository extends JpaRepository<Moto, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM moto m WHERE m.id_veiculo = :idVeiculo", nativeQuery = true)
+	@Query(value = "DELETE FROM moto m WHERE m.veiculo_id = :idVeiculo", nativeQuery = true)
 	void deletar(Long idVeiculo);
 
 	@Modifying

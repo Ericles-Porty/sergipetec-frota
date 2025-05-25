@@ -1,6 +1,5 @@
 package xyz.xpto.frota.infra.repositories.carro;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,27 +14,27 @@ import xyz.xpto.frota.domain.entities.Carro;
 
 @Repository
 public interface CarroJpaRepository extends JpaRepository<Carro, Long> {
-	@Modifying
 	@Transactional
 	@Query(value = """
-			INSERT INTO carro (quantidade_portas, tipo_combustivel)
-			VALUES (:quantidadePortas, :tipoCombustivel)
-			RETURNING id_veiculo
+			INSERT INTO carro (veiculo_id, quantidade_portas, tipo_combustivel)
+			VALUES (:veiculoId, :quantidadePortas, :tipoCombustivel)
+			RETURNING veiculo_id
 			""", nativeQuery = true)
-	Long inserir(
+	Integer inserir(
+			@Param("veiculoId") Long veiculoId,
 			@Param("quantidadePortas") Integer quantidadePortas,
 			@Param("tipoCombustivel") String tipoCombustivel);
 
-	@Query(value = "SELECT * FROM carro c WHERE c.id_veiculo = :idVeiculo", nativeQuery = true)
-	Optional<Carro> buscarPorId(Long idVeiculo);
+	@Query(value = "SELECT * FROM carro c WHERE c.veiculo_id = :veiculoId", nativeQuery = true)
+	Optional<Carro> buscarPorId(Long veiculoId);
 
 	@Query(value = "SELECT * FROM carro c", nativeQuery = true)
 	List<Carro> buscarTodos();
 
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM carro c WHERE c.id_veiculo = :idVeiculo", nativeQuery = true)
-	void deletar(Long idVeiculo);
+	@Query(value = "DELETE FROM carro c WHERE c.veiculo_id = :veiculoId", nativeQuery = true)
+	void deletar(Long veiculoId);
 
 	@Modifying
 	@Transactional
@@ -43,10 +42,10 @@ public interface CarroJpaRepository extends JpaRepository<Carro, Long> {
 			UPDATE carro
 			SET quantidade_portas = :quantidadePortas,
 			    tipo_combustivel = :tipoCombustivel
-			WHERE veiculo_id = :idVeiculo
+			WHERE veiculo_id = :veiculoId
 			""", nativeQuery = true)
 	int atualizar(
-			@Param("idVeiculo") Long idVeiculo,
+			@Param("veiculoId") Long veiculoId,
 			@Param("quantidadePortas") Integer quantidadePortas,
 			@Param("tipoCombustivel") String tipoCombustivel);
 }

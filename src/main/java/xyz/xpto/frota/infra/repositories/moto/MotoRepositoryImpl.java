@@ -19,9 +19,9 @@ public class MotoRepositoryImpl implements MotoRepository {
 
 	@Override
 	public Moto salvar(Moto moto) {
-		Long idMotoCriado = motoJpaRepository.inserir(moto.getCilindrada());
+		Integer idMotoCriado = motoJpaRepository.inserir(moto.getId(),moto.getCilindrada());
 
-		return motoJpaRepository.findById(idMotoCriado)
+		return motoJpaRepository.findById(idMotoCriado.longValue())
 				.orElseThrow(() -> new RuntimeException("Erro ao inserir moto"));
 	}
 
