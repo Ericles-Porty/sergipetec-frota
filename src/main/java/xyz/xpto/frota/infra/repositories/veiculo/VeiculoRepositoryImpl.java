@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import xyz.xpto.frota.application.interfaces.repositories.VeiculoRepository;
+import xyz.xpto.frota.domain.dtos.VeiculoDTO;
 import xyz.xpto.frota.domain.entities.Veiculo;
 
 @Repository
@@ -18,19 +19,21 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 	}
 
 	@Override
-	public Veiculo salvar(Veiculo veiculo) {
-		Long idVeiculoCriado = veiculoJpaRepository.inserir(
+	public VeiculoDTO salvar(Veiculo veiculo) {
+		Integer idVeiculoCriado = veiculoJpaRepository.inserir(
 				veiculo.getModelo(),
 				veiculo.getFabricante(),
 				veiculo.getAno(),
-				veiculo.getPreco());
-
-		return veiculoJpaRepository.findById(idVeiculoCriado)
+				veiculo.getPreco(),
+				veiculo.getTipo());
+		System.out.println("ID do veículo criado: " + idVeiculoCriado);
+		
+		return veiculoJpaRepository.buscarPorId(idVeiculoCriado.longValue())
 				.orElseThrow(() -> new RuntimeException("Erro ao inserir veículo"));
 	}
 
 	@Override
-	public Optional<Veiculo> atualizar(Veiculo veiculo) {
+	public Optional<VeiculoDTO> atualizar(Veiculo veiculo) {
 		int linhasAfetadas = veiculoJpaRepository.atualizar(
 				veiculo.getId(),
 				veiculo.getModelo(),
@@ -46,12 +49,12 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 	}
 
 	@Override
-	public Optional<Veiculo> buscarPorId(Long id) {
+	public Optional<VeiculoDTO> buscarPorId(Long id) {
 		return veiculoJpaRepository.buscarPorId(id);
 	}
 
 	@Override
-	public List<Veiculo> buscarTodos() {
+	public List<VeiculoDTO> buscarTodos() {
 		return veiculoJpaRepository.buscarTodos();
 	}
 

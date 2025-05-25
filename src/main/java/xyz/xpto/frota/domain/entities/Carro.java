@@ -3,6 +3,7 @@ package xyz.xpto.frota.domain.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 @NoArgsConstructor
+@SuperBuilder
 @AllArgsConstructor
 public class Carro extends Veiculo {
 

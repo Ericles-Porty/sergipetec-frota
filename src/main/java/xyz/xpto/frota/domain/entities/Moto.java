@@ -2,6 +2,7 @@ package xyz.xpto.frota.domain.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,8 +17,9 @@ import lombok.AllArgsConstructor;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class Moto extends Veiculo {
 
-    @Column(nullable = false)
-    private Integer cilindrada;
+	@Column(nullable = false)
+	private Integer cilindrada;
 }
