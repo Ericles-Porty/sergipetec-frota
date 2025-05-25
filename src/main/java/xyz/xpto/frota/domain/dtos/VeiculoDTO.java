@@ -16,12 +16,12 @@ public class VeiculoDTO {
 	private String fabricante;
 	private Integer ano;
 	private BigDecimal preco;
-	private String tipo; // "carro" ou "moto"
+	private String tipo;
 	private Integer quantidadePortas;
 	private String tipoCombustivel;
 	private Integer cilindrada;
 
-	public VeiculoDTO(Long id, String modelo, String fabricante, Integer ano, BigDecimal preco, String tipo, 
+	public VeiculoDTO(Long id, String modelo, String fabricante, Integer ano, BigDecimal preco, String tipo,
 			Integer quantidadePortas, String tipoCombustivel, Integer cilindrada) {
 		this.id = id;
 		this.modelo = modelo;

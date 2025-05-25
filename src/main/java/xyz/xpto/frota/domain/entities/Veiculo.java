@@ -42,7 +42,7 @@ import xyz.xpto.frota.domain.dtos.VeiculoDTO;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public abstract class Veiculo {
+public class Veiculo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
