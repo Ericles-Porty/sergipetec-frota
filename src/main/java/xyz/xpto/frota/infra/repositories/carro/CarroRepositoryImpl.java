@@ -36,7 +36,7 @@ public class CarroRepositoryImpl implements CarroRepository {
 				carro.getTipoCombustivel().name());
 
 		if (linhasAfetadas > 0) {
-			return carroJpaRepository.buscarPorId(carro.getId());
+			return Optional.of(carro);
 		}
 
 		return Optional.empty();

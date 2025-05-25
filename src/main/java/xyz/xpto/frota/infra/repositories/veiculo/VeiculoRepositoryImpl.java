@@ -27,7 +27,7 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 				veiculo.getPreco(),
 				veiculo.getTipo());
 		System.out.println("ID do veículo criado: " + idVeiculoCriado);
-		
+
 		return veiculoJpaRepository.buscarPorId(idVeiculoCriado.longValue())
 				.orElseThrow(() -> new RuntimeException("Erro ao inserir veículo"));
 	}
