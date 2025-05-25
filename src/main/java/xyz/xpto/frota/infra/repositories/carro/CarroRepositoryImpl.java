@@ -1,0 +1,59 @@
+package xyz.xpto.frota.infra.repositories.carro;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+
+import xyz.xpto.frota.application.interfaces.repositories.CarroRepository;
+import xyz.xpto.frota.domain.entities.Carro;
+
+@Repository
+public class CarroRepositoryImpl implements CarroRepository {
+
+	private final CarroJpaRepository carroJpaRepository;
+
+	public CarroRepositoryImpl(CarroJpaRepository carroJpaRepository) {
+		this.carroJpaRepository = carroJpaRepository;
+	}
+
+	@Override
+	public Carro salvar(Carro carro) {
+		Long idCarroCriado = carroJpaRepository.inserir(
+				carro.getQuantidadePortas(),
+				carro.getTipoCombustivel().name());
+
+		return carroJpaRepository.findById(idCarroCriado)
+				.orElseThrow(() -> new RuntimeException("Erro ao inserir carro"));
+	}
+
+	@Override
+	public Optional<Carro> atualizar(Carro carro) {
+		int linhasAfetadas = carroJpaRepository.atualizar(
+				carro.getId(),
+				carro.getQuantidadePortas(),
+				carro.getTipoCombustivel().name());
+
+		if (linhasAfetadas > 0) {
+			return carroJpaRepository.buscarPorId(carro.getId());
+		}
+
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<Carro> buscarPorId(Long idVeiculo) {
+		return carroJpaRepository.buscarPorId(idVeiculo);
+	}
+
+	@Override
+	public List<Carro> buscarTodos() {
+		return carroJpaRepository.buscarTodos();
+	}
+
+	@Override
+	public void deletar(Long idVeiculo) {
+		carroJpaRepository.deletar(idVeiculo);
+	}
+
+}
