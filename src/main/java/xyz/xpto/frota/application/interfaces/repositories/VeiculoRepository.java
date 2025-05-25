@@ -3,6 +3,7 @@ package xyz.xpto.frota.application.interfaces.repositories;
 import java.util.List;
 import java.util.Optional;
 
+import xyz.xpto.frota.domain.dtos.VeiculoDTO;
 import xyz.xpto.frota.domain.entities.Veiculo;
 
 public interface VeiculoRepository {
@@ -13,7 +14,7 @@ public interface VeiculoRepository {
 	 * @param veiculo o veículo a ser salvo
 	 * @return o veículo salvo
 	 */
-	Veiculo salvar(Veiculo veiculo);
+	VeiculoDTO salvar(Veiculo veiculo);
 
 	/**
 	 * Atualiza um veículo no repositório.
@@ -21,7 +22,7 @@ public interface VeiculoRepository {
 	 * @param veiculo o veículo a ser atualizado
 	 * @return o veículo atualizado, se encontrado; caso contrário, Optional.empty()
 	 */
-	Optional<Veiculo> atualizar(Veiculo veiculo);
+	Optional<VeiculoDTO> atualizar(Veiculo veiculo);
 
 	/**
 	 * Busca um veículo pelo ID.
@@ -29,14 +30,14 @@ public interface VeiculoRepository {
 	 * @param id o ID do veículo a ser buscado
 	 * @return o veículo encontrado, se existir; caso contrário, Optional.empty()
 	 */
-	Optional<Veiculo> buscarPorId(Long id);
+	Optional<VeiculoDTO> buscarPorId(Long id);
 
 	/**
 	 * Busca todos os veículos no repositório.
 	 *
 	 * @return uma lista de todos os veículos
 	 */
-	List<Veiculo> buscarTodos();
+	List<VeiculoDTO> buscarTodos();
 
 	/**
 	 * Deleta um veículo pelo ID.
