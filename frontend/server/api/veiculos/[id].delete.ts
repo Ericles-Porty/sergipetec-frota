@@ -20,7 +20,6 @@ export default defineEventHandler(async (event) => {
 		ignoreResponseError: true,
 	});
 
-	console.log('deleteVeiculo response', response)
 	if (response.success === false) {
 		return {
 			success: false,

@@ -28,12 +28,15 @@ const deletedVehicleEventHandler = async (event: string) => {
 
 	await refreshVeiculos()
 }
+
 </script>
 
 <template>
 	<div class="h-full text-center flex flex-col items-center justify-start gap-6">
 		<h1 class="text-6xl">Listagem de veiculos</h1>
+
 		<AdicionarVeiculoModalButton @new-vehicle-added-event="newVehicleAddedEventHandler" />
+		<VeiculosFilterBar />
 		<VeiculosTable @deleted-vehicle-event="deletedVehicleEventHandler" />
 	</div>
 </template>

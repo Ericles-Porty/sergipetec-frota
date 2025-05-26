@@ -14,7 +14,14 @@ type VeiculosResponse = {
 
 export default defineEventHandler(async (event) => {
 	const runtimeConfig = useRuntimeConfig(event)
-	const endpoint = runtimeConfig.public.apiBaseUrl + '/api/veiculos'
+	const query = getQuery(event)
+	
+	const queryString = Object.entries(query)
+	.filter(([, value]) => value !== undefined && value !== null && value !== '')
+	.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value as string)}`)
+	.join('&')
+	
+	const endpoint = `${runtimeConfig.public.apiBaseUrl}/api/veiculos${queryString ? `?${queryString}` : ''}`
 
 	const response = await $fetch<ApiResponseWrapper<VeiculosResponse[]>>(endpoint)
 

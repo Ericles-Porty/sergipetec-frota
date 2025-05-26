@@ -77,10 +77,13 @@ const columns: TableColumn<VeiculoTable>[] = [
 	{
 		accessorKey: 'preco',
 		header: ({ column }) => getHeader(column, 'Preço'),
-		cell: ({ row }) => row.getValue('preco').toLocaleString('pt-BR', {
-			style: 'currency',
-			currency: 'BRL'
-		})
+		cell: ({ row }) => {
+			const preco = row.getValue('preco') as number
+			return preco.toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL'
+			})
+		}
 	},
 	{
 		accessorKey: 'cor',
