@@ -25,15 +25,6 @@ public interface CarroJpaRepository extends JpaRepository<Carro, Long> {
 			@Param("quantidadePortas") Integer quantidadePortas,
 			@Param("tipoCombustivel") String tipoCombustivel);
 
-	@Query(value = """
-			SELECT * FROM carro c
-			WHERE c.veiculo_id = :veiculoId
-			""", nativeQuery = true)
-	Optional<Carro> buscarPorId(Long veiculoId);
-
-	@Query(value = "SELECT * FROM carro c", nativeQuery = true)
-	List<Carro> buscarTodos();
-
 	@Modifying
 	@Transactional
 	@Query(value = "DELETE FROM carro c WHERE c.veiculo_id = :veiculoId", nativeQuery = true)

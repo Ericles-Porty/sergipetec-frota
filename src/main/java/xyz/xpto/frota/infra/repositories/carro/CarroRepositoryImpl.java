@@ -43,16 +43,6 @@ public class CarroRepositoryImpl implements CarroRepository {
 	}
 
 	@Override
-	public Optional<Carro> buscarPorId(Long idVeiculo) {
-		return carroJpaRepository.buscarPorId(idVeiculo);
-	}
-
-	@Override
-	public List<Carro> buscarTodos() {
-		return carroJpaRepository.buscarTodos();
-	}
-
-	@Override
 	public void deletar(Long idVeiculo) {
 		carroJpaRepository.deletar(idVeiculo);
 	}

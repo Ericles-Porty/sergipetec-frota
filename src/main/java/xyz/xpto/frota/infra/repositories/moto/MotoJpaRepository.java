@@ -1,8 +1,5 @@
 package xyz.xpto.frota.infra.repositories.moto;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,12 +20,6 @@ public interface MotoJpaRepository extends JpaRepository<Moto, Long> {
 	Integer inserir(
 			@Param("veiculoId") Long veiculoId,
 			@Param("cilindrada") Integer cilindrada);
-
-	@Query(value = "SELECT * FROM moto m WHERE m.veiculo_id = :idVeiculo", nativeQuery = true)
-	Optional<Moto> buscarPorId(Long idVeiculo);
-
-	@Query(value = "SELECT * FROM moto m", nativeQuery = true)
-	List<Moto> buscarTodos();
 
 	@Modifying
 	@Transactional

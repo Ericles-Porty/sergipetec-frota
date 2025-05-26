@@ -1,6 +1,5 @@
 package xyz.xpto.frota.infra.repositories.moto;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -36,16 +35,6 @@ public class MotoRepositoryImpl implements MotoRepository {
 		}
 
 		return Optional.empty();
-	}
-
-	@Override
-	public Optional<Moto> buscarPorId(Long idVeiculo) {
-		return motoJpaRepository.buscarPorId(idVeiculo);
-	}
-
-	@Override
-	public List<Moto> buscarTodos() {
-		return motoJpaRepository.buscarTodos();
 	}
 
 	@Override
