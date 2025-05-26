@@ -10,7 +10,13 @@ import lombok.Data;
 
 public class ObterVeiculos {
 
+	@Data
+	@Builder
 	public static class Request {
+		String tipo;
+		String modelo;
+		String cor;
+		Integer ano;
 	}
 
 	@Data

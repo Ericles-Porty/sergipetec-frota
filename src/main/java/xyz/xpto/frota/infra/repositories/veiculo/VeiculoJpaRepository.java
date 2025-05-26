@@ -1,7 +1,6 @@
 package xyz.xpto.frota.infra.repositories.veiculo;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +15,7 @@ import xyz.xpto.frota.domain.entities.Veiculo;
 
 @Repository
 public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
+
 	@Transactional
 	@Query(value = """
 			INSERT INTO veiculo (modelo, fabricante, ano, preco, cor, tipo)
@@ -38,14 +38,6 @@ public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
 			WHERE v.id = :id
 			""", nativeQuery = true)
 	Optional<VeiculoDTO> buscarPorId(Long id);
-
-	@Query(value = """
-			SELECT v.id, v.modelo, v.fabricante, v.ano, v.preco, v.cor, v.tipo, c.quantidade_portas, c.tipo_combustivel, m.cilindrada
-			FROM veiculo v
-			LEFT JOIN carro c ON c.veiculo_id = v.id
-			LEFT JOIN moto m ON m.veiculo_id = v.id
-			""", nativeQuery = true)
-	List<VeiculoDTO> buscarTodos();
 
 	@Modifying
 	@Transactional

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -31,8 +32,20 @@ public class VeiculoController {
 	private final VeiculoService veiculoService;
 
 	@GetMapping(value = "")
-	public ResponseEntity<?> getVeiculos() {
-		ObterVeiculos.Response response = veiculoService.obterVeiculos(new ObterVeiculos.Request());
+	public ResponseEntity<?> getVeiculos(
+			@RequestParam(required = false) String tipo,
+			@RequestParam(required = false) String modelo,
+			@RequestParam(required = false) String cor,
+			@RequestParam(required = false) Integer ano) {
+
+		ObterVeiculos.Request request = ObterVeiculos.Request.builder()
+				.tipo(tipo)
+				.modelo(modelo)
+				.cor(cor)
+				.ano(ano)
+				.build();
+
+		ObterVeiculos.Response response = veiculoService.obterVeiculos(request);
 		return StandardResponse.success(response.getVeiculos());
 	}
 

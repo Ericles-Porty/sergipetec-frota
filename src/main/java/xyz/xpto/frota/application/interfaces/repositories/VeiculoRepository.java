@@ -37,7 +37,7 @@ public interface VeiculoRepository {
 	 *
 	 * @return uma lista de todos os veículos
 	 */
-	List<VeiculoDTO> buscarTodos();
+	List<VeiculoDTO> buscarTodos(String tipo, String modelo, String cor, Integer ano);
 
 	/**
 	 * Deleta um veículo pelo ID.

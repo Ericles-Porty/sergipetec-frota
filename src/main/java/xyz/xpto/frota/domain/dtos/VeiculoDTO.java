@@ -4,11 +4,7 @@ package xyz.xpto.frota.domain.dtos;
 import java.math.BigDecimal;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @Data
 public class VeiculoDTO {
 	private Long id;

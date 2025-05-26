@@ -30,7 +30,7 @@ public class VeiculoService {
 	private final MotoRepository motoRepository;
 
 	public ObterVeiculos.Response obterVeiculos(ObterVeiculos.Request request) {
-		List<VeiculoDTO> veiculos = veiculoRepository.buscarTodos();
+		List<VeiculoDTO> veiculos = veiculoRepository.buscarTodos(request.getTipo(), request.getModelo(), request.getCor(), request.getAno());
 		List<ObterVeiculos.Response.VeiculoResponse> veiculosResponse = veiculos.stream()
 				.map(veiculo -> ObterVeiculos.Response.VeiculoResponse.builder()
 						.id(veiculo.getId())
