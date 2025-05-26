@@ -42,6 +42,10 @@ public class CadastrarVeiculo {
 		@Pattern(regexp = "CARRO|MOTO", message = "Tipo de veículo inválido")
 		String tipo;
 
+		@NotBlank(message = "Cor é obrigatória")
+		@Size(min = 3, max = 50, message = "Cor deve ter entre 3 e 50 caracteres")
+		String cor;
+
 		// Apenas para carro
 		Integer quantidadePortas;
 		@Pattern(regexp = "GASOLINA|ETANOL|DIESEL|FLEX", message = "Tipo de combustível inválido")
@@ -60,6 +64,7 @@ public class CadastrarVeiculo {
 		String fabricante;
 		Integer ano;
 		BigDecimal preco;
+		String cor;
 		String tipo;
 		Integer quantidadePortas;
 		String tipoCombustivel;

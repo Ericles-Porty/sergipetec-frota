@@ -18,8 +18,8 @@ import xyz.xpto.frota.domain.entities.Veiculo;
 public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
 	@Transactional
 	@Query(value = """
-			INSERT INTO veiculo (modelo, fabricante, ano, preco, tipo)
-			VALUES (:modelo, :fabricante, :ano, :preco, :tipo)
+			INSERT INTO veiculo (modelo, fabricante, ano, preco, cor, tipo)
+			VALUES (:modelo, :fabricante, :ano, :preco, :cor, :tipo)
 			RETURNING id
 			""", nativeQuery = true)
 	Integer inserir(
@@ -27,24 +27,24 @@ public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
 			@Param("fabricante") String fabricante,
 			@Param("ano") Integer ano,
 			@Param("preco") BigDecimal preco,
+			@Param("cor") String cor,
 			@Param("tipo") String tipo);
 
 	@Query(value = """
-	SELECT v.id, v.modelo, v.fabricante, v.ano, v.preco, v.tipo, c.quantidade_portas, c.tipo_combustivel, m.cilindrada
-        FROM veiculo v
-        LEFT JOIN carro c ON c.veiculo_id = v.id
-        LEFT JOIN moto m ON m.veiculo_id = v.id 
-	WHERE v.id = :id
-	""", nativeQuery = true)
+			SELECT v.id, v.modelo, v.fabricante, v.ano, v.preco, v.cor, v.tipo, c.quantidade_portas, c.tipo_combustivel, m.cilindrada
+			       FROM veiculo v
+			       LEFT JOIN carro c ON c.veiculo_id = v.id
+			       LEFT JOIN moto m ON m.veiculo_id = v.id
+			WHERE v.id = :id
+			""", nativeQuery = true)
 	Optional<VeiculoDTO> buscarPorId(Long id);
 
 	@Query(value = """
-        SELECT v.id, v.modelo, v.fabricante, v.ano, v.preco, v.tipo, c.quantidade_portas, c.tipo_combustivel, m.cilindrada
-        FROM veiculo v
-        LEFT JOIN carro c ON c.veiculo_id = v.id
-        LEFT JOIN moto m ON m.veiculo_id = v.id
-        """,
-        nativeQuery = true)
+			SELECT v.id, v.modelo, v.fabricante, v.ano, v.preco, v.cor, v.tipo, c.quantidade_portas, c.tipo_combustivel, m.cilindrada
+			FROM veiculo v
+			LEFT JOIN carro c ON c.veiculo_id = v.id
+			LEFT JOIN moto m ON m.veiculo_id = v.id
+			""", nativeQuery = true)
 	List<VeiculoDTO> buscarTodos();
 
 	@Modifying
@@ -59,7 +59,8 @@ public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
 				modelo = :modelo,
 				fabricante = :fabricante,
 				ano = :ano,
-				preco = :preco
+				preco = :preco,
+				cor = :cor
 			WHERE id = :id
 			""", nativeQuery = true)
 	int atualizar(
@@ -67,5 +68,6 @@ public interface VeiculoJpaRepository extends JpaRepository<Veiculo, Long> {
 			@Param("modelo") String modelo,
 			@Param("fabricante") String fabricante,
 			@Param("ano") Integer ano,
-			@Param("preco") BigDecimal preco);
+			@Param("preco") BigDecimal preco,
+			@Param("cor") String cor);
 }

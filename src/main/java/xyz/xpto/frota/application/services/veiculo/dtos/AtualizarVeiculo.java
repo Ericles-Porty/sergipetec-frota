@@ -41,9 +41,14 @@ public class AtualizarVeiculo {
 		@DecimalMin(value = "0.00", inclusive = true, message = "Preço deve ser positivo")
 		BigDecimal preco;
 
+		@NotBlank(message = "Cor é obrigatória")
+		@Size(min = 3, max = 50, message = "Cor deve ter entre 3 e 50 caracteres")
+		String cor;
+
 		// Apenas para carro
 		@Min(value = 1, message = "Quantidade de portas deve ser maior ou igual a 1")
 		Integer quantidadePortas;
+
 		@Pattern(regexp = "GASOLINA|ETANOL|DIESEL|FLEX", message = "Tipo de combustível inválido")
 		String tipoCombustivel;
 
@@ -61,6 +66,7 @@ public class AtualizarVeiculo {
 		String fabricante;
 		Integer ano;
 		BigDecimal preco;
+		String cor;
 		String tipo;
 		Integer quantidadePortas;
 		String tipoCombustivel;

@@ -25,6 +25,7 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 				veiculo.getFabricante(),
 				veiculo.getAno(),
 				veiculo.getPreco(),
+				veiculo.getCor(),
 				veiculo.getTipo());
 		System.out.println("ID do veículo criado: " + idVeiculoCriado);
 
@@ -39,7 +40,8 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 				veiculo.getModelo(),
 				veiculo.getFabricante(),
 				veiculo.getAno(),
-				veiculo.getPreco());
+				veiculo.getPreco(),
+				veiculo.getCor());
 
 		if (linhasAfetadas > 0) {
 			return veiculoJpaRepository.buscarPorId(veiculo.getId());

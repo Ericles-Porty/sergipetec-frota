@@ -24,6 +24,7 @@ public class ObterVeiculo {
 		String fabricante;
 		Integer ano;
 		BigDecimal preco;
+		String cor;
 		String tipo;
 		Integer quantidadePortas;
 		String tipoCombustivel;

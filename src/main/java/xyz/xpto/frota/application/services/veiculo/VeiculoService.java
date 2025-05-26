@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
-import xyz.xpto.frota.api.extensions.StandardResponse;
 import xyz.xpto.frota.application.interfaces.repositories.CarroRepository;
 import xyz.xpto.frota.application.interfaces.repositories.MotoRepository;
 import xyz.xpto.frota.application.interfaces.repositories.VeiculoRepository;
@@ -20,7 +19,6 @@ import xyz.xpto.frota.application.services.veiculo.dtos.ObterVeiculos;
 import xyz.xpto.frota.domain.dtos.VeiculoDTO;
 import xyz.xpto.frota.domain.entities.Carro;
 import xyz.xpto.frota.domain.entities.Moto;
-import xyz.xpto.frota.domain.entities.Veiculo;
 import xyz.xpto.frota.domain.entities.Carro.TipoCombustivel;
 
 @Service
@@ -40,6 +38,7 @@ public class VeiculoService {
 						.fabricante(veiculo.getFabricante())
 						.ano(veiculo.getAno())
 						.preco(veiculo.getPreco())
+						.cor(veiculo.getCor())
 						.tipo(veiculo.getTipo())
 						.quantidadePortas(veiculo.getQuantidadePortas())
 						.tipoCombustivel(veiculo.getTipoCombustivel())
@@ -60,6 +59,7 @@ public class VeiculoService {
 				.fabricante(veiculo.getFabricante())
 				.ano(veiculo.getAno())
 				.preco(veiculo.getPreco())
+				.cor(veiculo.getCor())
 				.tipo(veiculo.getTipo())
 				.quantidadePortas(veiculo.getQuantidadePortas())
 				.tipoCombustivel(veiculo.getTipoCombustivel())
@@ -76,6 +76,7 @@ public class VeiculoService {
 					.fabricante(request.getFabricante())
 					.ano(request.getAno())
 					.preco(request.getPreco())
+					.cor(request.getCor())
 					.tipo(request.getTipo())
 					.quantidadePortas(request.getQuantidadePortas())
 					.tipoCombustivel(TipoCombustivel.valueOf(request.getTipoCombustivel())).build();
@@ -92,6 +93,7 @@ public class VeiculoService {
 					.fabricante(carroCriado.getFabricante())
 					.ano(carroCriado.getAno())
 					.preco(carroCriado.getPreco())
+					.cor(carroCriado.getCor())
 					.tipo(carroCriado.getTipo())
 					.quantidadePortas(carroCriado.getQuantidadePortas())
 					.tipoCombustivel(carroCriado.getTipoCombustivel().name())
@@ -104,6 +106,7 @@ public class VeiculoService {
 					.fabricante(request.getFabricante())
 					.ano(request.getAno())
 					.preco(request.getPreco())
+					.cor(request.getCor())
 					.tipo(request.getTipo())
 					.cilindrada(request.getCilindrada())
 					.build();
@@ -118,6 +121,7 @@ public class VeiculoService {
 					.fabricante(motoCriada.getFabricante())
 					.ano(motoCriada.getAno())
 					.preco(motoCriada.getPreco())
+					.cor(motoCriada.getCor())
 					.tipo(motoCriada.getTipo())
 					.cilindrada(motoCriada.getCilindrada())
 					.build();
@@ -153,6 +157,7 @@ public class VeiculoService {
 		Optional.ofNullable(request.getFabricante()).ifPresent(veiculoDto::setFabricante);
 		Optional.ofNullable(request.getAno()).ifPresent(veiculoDto::setAno);
 		Optional.ofNullable(request.getPreco()).ifPresent(veiculoDto::setPreco);
+		Optional.ofNullable(request.getCor()).ifPresent(veiculoDto::setCor);
 		Optional.ofNullable(request.getQuantidadePortas()).ifPresent(veiculoDto::setQuantidadePortas);
 		Optional.ofNullable(request.getTipoCombustivel()).ifPresent(veiculoDto::setTipoCombustivel);
 		Optional.ofNullable(request.getCilindrada()).ifPresent(veiculoDto::setCilindrada);
@@ -164,6 +169,7 @@ public class VeiculoService {
 					.fabricante(veiculoDto.getFabricante())
 					.ano(veiculoDto.getAno())
 					.preco(veiculoDto.getPreco())
+					.cor(veiculoDto.getCor())
 					.tipo(veiculoDto.getTipo())
 					.quantidadePortas(veiculoDto.getQuantidadePortas())
 					.tipoCombustivel(TipoCombustivel.valueOf(veiculoDto.getTipoCombustivel()))
@@ -178,6 +184,7 @@ public class VeiculoService {
 					.fabricante(veiculoDto.getFabricante())
 					.ano(veiculoDto.getAno())
 					.preco(veiculoDto.getPreco())
+					.cor(veiculoDto.getCor())
 					.tipo(veiculoDto.getTipo())
 					.cilindrada(veiculoDto.getCilindrada())
 					.build();
@@ -193,6 +200,7 @@ public class VeiculoService {
 				.fabricante(veiculoDto.getFabricante())
 				.ano(veiculoDto.getAno())
 				.preco(veiculoDto.getPreco())
+				.cor(veiculoDto.getCor())
 				.tipo(veiculoDto.getTipo())
 				.quantidadePortas(veiculoDto.getQuantidadePortas())
 				.tipoCombustivel(veiculoDto.getTipoCombustivel())

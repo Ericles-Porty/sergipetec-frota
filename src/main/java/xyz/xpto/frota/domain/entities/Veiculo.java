@@ -61,6 +61,9 @@ public class Veiculo {
 	protected BigDecimal preco;
 
 	@Column(nullable = false)
+	protected String cor;
+
+	@Column(nullable = false)
 	protected String tipo;
 
 }

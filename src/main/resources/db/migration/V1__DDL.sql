@@ -4,6 +4,7 @@ CREATE TABLE Veiculo (
     fabricante VARCHAR(100) NOT NULL,
     ano INT NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
+	cor VARCHAR(50) NOT NULL,
     tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('CARRO', 'MOTO'))
 );
 
