@@ -42,7 +42,7 @@ function mapVeiculosResponseToVeiculos(responses: VeiculosResponse[]): Veiculo[]
 			ano: veiculo.ano,
 			preco: veiculo.preco,
 			cor: veiculo.cor,
-			tipo: veiculo.tipo,
+			tipo: veiculo.tipo.charAt(0).toUpperCase() + veiculo.tipo.slice(1).toLowerCase()
 		}
 	})
 }
