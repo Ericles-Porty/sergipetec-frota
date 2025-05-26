@@ -13,29 +13,6 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  # oracle:
-  #   image: "gvenzl/oracle-free:latest"
-  #   container_name: "frota-oracle-db"
-  #   environment:
-  #     - ORACLE_PASSWORD=secret
-  #     - APP_USER=SERGIPETECDEV01
-  #     - APP_USER_PASSWORD=STD01@
-  #   ports:
-  #     - 1521:1521
-  #   networks:
-  #     - frota-network
-  #   volumes:
-  #     - oracle-data:/opt/oracle/oradata
-  #   healthcheck:
-  #     test:
-  #       [
-  #         "CMD-SHELL",
-  #         "echo 'SELECT 1 FROM DUAL;' | sqlplus -s system/secret@FREEPDB1 || exit 1",
-  #       ]
-  #     interval: 10s
-  #     retries: 5
-  #     start_period: 10s
-
   backend:
     build:
       context: ./backend
@@ -45,9 +22,9 @@ services:
       - ./backend:/app:cached
     command: mvn spring-boot:run
     environment:
-      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle/FREEPDB1
-      SPRING_DATASOURCE_USERNAME: SERGIPETECDEV01
-      SPRING_DATASOURCE_PASSWORD: STD01@
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/frota
+      SPRING_DATASOURCE_USERNAME: sergipetec
+      SPRING_DATASOURCE_PASSWORD: secret
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
     ports:
@@ -55,27 +32,24 @@ services:
     networks:
       - frota-network
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: frota-frontend
-  #   ports:
-  #     - "5173:5173"
-  #   networks:
-  #     - frota-network
-  #   depends_on:
-  #     - backend
-  #   volumes:
-  #     - ./frontend:/app:cached
-  #     - /app/node_modules
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frota-frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - frota-network
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app:cached
 
 networks:
   frota-network:
     driver: bridge
 
 volumes:
-  # oracle-data:
-  #   driver: local
   postgres-data:
     driver: local
