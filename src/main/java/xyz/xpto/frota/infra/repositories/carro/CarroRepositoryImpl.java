@@ -42,8 +42,8 @@ public class CarroRepositoryImpl implements CarroRepository {
 	}
 
 	@Override
-	public void deletar(Long idVeiculo) {
-		carroJpaRepository.deletar(idVeiculo);
+	public void deletar(Long veiculoId) {
+		carroJpaRepository.deletar(veiculoId);
 	}
 
 }

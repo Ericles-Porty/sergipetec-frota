@@ -25,8 +25,8 @@ public interface MotoRepository {
 	/**
 	 * Deleta uma moto pelo ID.
 	 *
-	 * @param id o ID da moto a ser deletada
+	 * @param veiculoId o ID da moto a ser deletada
 	 */
-	void deletar(Long id);
+	void deletar(Long veiculoId);
 
 }

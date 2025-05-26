@@ -23,18 +23,18 @@ public interface MotoJpaRepository extends JpaRepository<Moto, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM moto m WHERE m.veiculo_id = :idVeiculo", nativeQuery = true)
-	void deletar(Long idVeiculo);
+	@Query(value = "DELETE FROM moto m WHERE m.veiculo_id = :veiculoId", nativeQuery = true)
+	void deletar(Long veiculoId);
 
 	@Modifying
 	@Transactional
 	@Query(value = """
 			UPDATE moto
 			SET cilindrada = :cilindrada
-			WHERE veiculo_id = :idVeiculo
+			WHERE veiculo_id = :veiculoId
 			""", nativeQuery = true)
 	int atualizar(
-			@Param("idVeiculo") Long idVeiculo,
+			@Param("veiculoId") Long veiculoId,
 			@Param("cilindrada") Integer cilindrada);
 
 }

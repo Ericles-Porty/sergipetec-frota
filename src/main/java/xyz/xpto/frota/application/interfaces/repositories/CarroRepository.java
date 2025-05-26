@@ -25,8 +25,8 @@ public interface CarroRepository {
 	/**
 	 * Deleta um carro pelo ID.
 	 *
-	 * @param id o ID do carro a ser deletado
+	 * @param veiculoId o ID do carro a ser deletado
 	 */
-	void deletar(Long id);
+	void deletar(Long veiculoId);
 
 }
