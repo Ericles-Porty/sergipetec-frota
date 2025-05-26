@@ -101,10 +101,9 @@ const columns: TableColumn<VeiculoTable>[] = [
 				icon: 'i-lucide-trash-2',
 				color: 'danger',
 				variant: 'ghost',
-				class: 'text-red-500',
-				// on hover use mouse pointer
+				class: 'text-red-500 hover:text-red-700 focus:text-red-700 cursor-pointer',
 				onClick: async () => {
-					if (confirm(`Deseja apagar ${veiculo.nome}?`) === false) return
+					if (confirm(`Deseja apagar ${veiculo.modelo} ${veiculo.ano} ${veiculo.cor}?`) === false) return
 
 					const result = await deleteVeiculo(veiculo.id)
 					if (result.success === false) {
@@ -118,9 +117,9 @@ const columns: TableColumn<VeiculoTable>[] = [
 						return
 					}
 
-					emit('deletedVehicleEvent', veiculo.nome)
+					emit('deletedVehicleEvent', `${veiculo.modelo} ${veiculo.ano} ${veiculo.cor}`)
 				},
-				'aria-label': `Apagar ${veiculo.nome}`,
+				'aria-label': `Apagar ${veiculo.modelo} ${veiculo.ano} ${veiculo.cor}`
 			})
 		}
 	}
@@ -206,7 +205,7 @@ function getHeader(column: Column<VeiculoTable>, label: string) {
 						? 'i-lucide-arrow-up-narrow-wide'
 						: 'i-lucide-arrow-down-wide-narrow'
 					: 'i-lucide-arrow-up-down',
-				class: '-mx-2.5 data-[state=open]:bg-(--ui-bg-elevated)',
+				class: '-mx-2.5 data-[state=open]:bg-(--ui-bg-elevated) cursor-pointer',
 				'aria-label': `Sort by ${isSorted === 'asc' ? 'descending' : 'ascending'}`
 			})
 	)

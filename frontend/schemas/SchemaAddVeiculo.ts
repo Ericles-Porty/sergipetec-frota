@@ -13,9 +13,14 @@ export const schemaAddVeiculo = z.object({
 		.int('Ano deve ser um número inteiro')
 		.min(1000, 'Ano deve ser maior ou igual a 1000')
 		.max(new Date().getFullYear(), 'Ano deve ser menor ou igual ao ano atual'),
-	preco: z.number()
-		.nonnegative('Preço não pode ser negativo')
-		.min(0, 'Preço deve ser maior ou igual a 0'),
+	preco: z.string()
+		.nonempty('Preço é obrigatório')
+		.refine((value) => {
+			const numero = parseFloat(value.replace(/[^\d,-]/g, '').replace(',', '.'))
+			return !isNaN(numero) && numero >= 0
+		}, {
+			message: 'Preço deve ser um número válido e maior ou igual a 0',
+		}),
 	cor: z.string()
 		.nonempty('Cor é obrigatória')
 		.min(3, 'Cor deve ter no mínimo 3 caracteres')

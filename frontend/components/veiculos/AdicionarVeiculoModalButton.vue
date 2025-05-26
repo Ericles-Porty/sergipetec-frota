@@ -2,7 +2,7 @@
 <template>
 	<UModal v-model:open="isModalOpen" title="Adicionar Veículo" description="Adicionar um novo veículo ao sistema">
 
-		<UButton icon="lucide:plus" label="Adicionar Veículo" color="neutral" variant="subtle"
+		<UButton icon="lucide:plus" label="Adicionar Veículo" color="neutral" variant="subtle" class="cursor-pointer"
 			@click="isModalOpen = true" />
 
 		<template #body>
@@ -16,20 +16,20 @@
 					</UFormField>
 					<UFormField label="Fabricante do veiculo" name="fabricante" class="w-full">
 						<div class="flex flex-row justify-between items-center">
-							<UInput v-model="stateAddVeiculo.fabricante" placeholder="Fabricante do veiculo"
-								required class="w-4/10" />
+							<UInput v-model="stateAddVeiculo.fabricante" placeholder="Fabricante do veiculo" required
+								class="w-4/10" />
 						</div>
 					</UFormField>
 					<UFormField label="Ano do veiculo" name="ano" class="w-full">
 						<div class="flex flex-row justify-between items-center">
-							<UInput v-model="stateAddVeiculo.ano" type="number" placeholder="Ano do veiculo"
-								required class="w-2/10" />
+							<UInput v-model="stateAddVeiculo.ano" type="number" placeholder="Ano do veiculo" required
+								class="w-2/10" />
 						</div>
 					</UFormField>
 					<UFormField label="Preço do veiculo" name="preco" class="w-full">
 						<div class="flex flex-row justify-between items-center">
-							<UInput v-model="stateAddVeiculo.preco" type="number" placeholder="Preço do veiculo"
-								required class="w-3/10" />
+							<UInput v-model="precoFormatado" type="text" placeholder="Preço do veiculo" required
+								class="w-3/10" />
 						</div>
 					</UFormField>
 					<UFormField label="Cor do veiculo" name="cor" class="w-full">
@@ -40,16 +40,16 @@
 					</UFormField>
 					<UFormField label="Tipo do veiculo" name="tipo" class="w-full">
 						<div class="flex flex-row justify-between items-center">
-							<USelect v-model="stateAddVeiculo.tipo" :items="tiposVeiculo"
-								placeholder="Tipo do veiculo" required class="w-6/10" />
+							<USelect v-model="stateAddVeiculo.tipo" :items="tiposVeiculo" placeholder="Tipo do veiculo"
+								required class="w-3-5/10" />
 						</div>
 					</UFormField>
 					<!-- if tipo veiculo = moto add field cilindrada -->
 					<UFormField v-if="stateAddVeiculo.tipo === 'Moto'" label="Cilindrada da moto" name="cilindrada"
 						class="w-full">
 						<div class="flex flex-row justify-between items-center">
-							<UInput v-model="stateAddVeiculo.cilindrada" type="number"
-								placeholder="Cilindrada da moto" required class="w-3/10" />
+							<UInput v-model="stateAddVeiculo.cilindrada" type="number" placeholder="Cilindrada da moto"
+								required class="w-3/10" />
 						</div>
 					</UFormField>
 					<!-- if tipo veiculo = carro add field numero de portas -->
@@ -60,7 +60,7 @@
 								placeholder="Número de portas do carro" required class="w-3/10" />
 						</div>
 					</UFormField>
-					<!-- if tipo veiculo = carro add field tipo de combustivel -->	
+					<!-- if tipo veiculo = carro add field tipo de combustivel -->
 					<UFormField v-if="stateAddVeiculo.tipo === 'Carro'" label="Tipo de combustível do carro"
 						name="tipoCombustivel" class="w-full">
 						<div class="flex flex-row justify-between items-center">
@@ -90,14 +90,30 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import type * as z from 'zod'
 import { schemaAddVeiculo } from '~/schemas/SchemaAddVeiculo';
 
+const precoFormatado = computed({
+	get() {
+		const preco = parseFloat(stateAddVeiculo.preco)
+		if (isNaN(preco)) return ''
+		return new Intl.NumberFormat('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+		}).format(preco)
+	},
+	set(valor) {
+		const somenteNumeros = valor.replace(/\D/g, '') || '0'
+		const numero = parseFloat(somenteNumeros) / 100
+		stateAddVeiculo.preco = numero.toFixed(2) // ex: "35000.00"
+	}
+})
+
 const { addVeiculo } = useVeiculoApi()
 const toast = useToast()
 
 const stateAddVeiculo = reactive({
 	modelo: '',
 	fabricante: '',
-	ano: 0,
-	preco: 0,
+	ano: new Date().getFullYear(),
+	preco: '',
 	cor: '',
 	tipo: '',
 	cilindrada: 150,
@@ -118,15 +134,17 @@ const onSubmitAddVeiculo = async (event: FormSubmitEvent<z.output<typeof schemaA
 	isModalOpen.value = false
 	stateAddVeiculo.modelo = ''
 	stateAddVeiculo.fabricante = ''
-	stateAddVeiculo.ano = 0
-	stateAddVeiculo.preco = 0
+	stateAddVeiculo.ano = new Date().getFullYear()
+	stateAddVeiculo.preco = ''
 	stateAddVeiculo.cor = ''
 	stateAddVeiculo.tipo = ''
 	stateAddVeiculo.cilindrada = 150
 	stateAddVeiculo.quantidadePortas = 1
 	stateAddVeiculo.tipoCombustivel = ''
 
+	console.log('onSubmitAddVeiculo', event.data)
 	const response = await addVeiculo(event.data)
+	console.log('response', response)
 
 	if (response.success === false) {
 		toast.add({
