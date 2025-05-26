@@ -38,8 +38,8 @@ public class MotoRepositoryImpl implements MotoRepository {
 	}
 
 	@Override
-	public void deletar(Long idVeiculo) {
-		motoJpaRepository.deletar(idVeiculo);
+	public void deletar(Long veiculoId) {
+		motoJpaRepository.deletar(veiculoId);
 	}
 
 }

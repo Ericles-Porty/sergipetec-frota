@@ -20,16 +20,16 @@ public class VeiculoRepositoryImpl implements VeiculoRepository {
 
 	@Override
 	public VeiculoDTO salvar(Veiculo veiculo) {
-		Integer idVeiculoCriado = veiculoJpaRepository.inserir(
+		Integer veiculoIdCriado = veiculoJpaRepository.inserir(
 				veiculo.getModelo(),
 				veiculo.getFabricante(),
 				veiculo.getAno(),
 				veiculo.getPreco(),
 				veiculo.getCor(),
 				veiculo.getTipo());
-		System.out.println("ID do veículo criado: " + idVeiculoCriado);
+		System.out.println("ID do veículo criado: " + veiculoIdCriado);
 
-		return veiculoJpaRepository.buscarPorId(idVeiculoCriado.longValue())
+		return veiculoJpaRepository.buscarPorId(veiculoIdCriado.longValue())
 				.orElseThrow(() -> new RuntimeException("Erro ao inserir veículo"));
 	}
 
