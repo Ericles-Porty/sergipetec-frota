@@ -1,0 +1,15 @@
+meta {
+  name: Obter veiculo por ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/veiculos/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}

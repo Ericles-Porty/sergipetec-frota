@@ -1,0 +1,23 @@
+meta {
+  name: Cadastrar moto
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/api/veiculos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "modelo": "NMax",
+    "fabricante": "Yamaha",
+    "ano": 2025,
+    "preco": 2000.00,
+    "cor": "Cinza",
+    "tipo": "MOTO",
+    "cilindrada": 160
+  }
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Atualizar moto
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:8080/api/veiculos/4
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 4,
+    "modelo": "CB 500FS",
+    "fabricante": "Honde",
+    "ano": 2024,
+    "preco": 32000,
+    "cor": "Cinza",
+    "cilindrada": 499
+  }
+}
