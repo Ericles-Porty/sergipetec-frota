@@ -1,11 +1,11 @@
 
-# Frota - Java + Spring Boot + Vue.js + Postgres + Docker
+# Frota - Java + Spring Boot + Nuxt.js + Postgres + Docker
 
 ## Sobre o Projeto 🎯✨📋
 
 Desafio proposto pela empresa Sergipetec para a vaga de Analista de sistemas.
 
-O projeto é um sistema de frota desenvolvido com Java, Spring Boot, Vue.js, Postgres e Docker.
+O projeto é um sistema de frota desenvolvido com Java, Spring Boot, Nuxt.js, Postgres e Docker.
 
 ---
 
@@ -16,6 +16,7 @@ Antes de configurar e executar o projeto, certifique-se de ter os seguintes requ
  - Docker (Para execução em ambiente de desenvolvimento e produção)
  - JDK 21 (Para executar comandos Maven)
  - Maven 3.8.4 (Para execução de comandos como migrações e testes)
+ - Node.js 24 (Para desenvolvimento do frontend com Nuxt.js)
 
 ---
 
@@ -45,30 +46,21 @@ cd backend
 mvn flyway:migrate
 ```
 
-Acesse o projeto no navegador em [http://localhost:8080](http://localhost:8080).
+Backend executando em [http://localhost:8080](http://localhost:8080).
+
+
+1. Inicie o frontend:
+
+```bash
+cd frontend
+yarn install
+yarn run dev
+```
+
+Frontend executando em [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Deploy para Produção 🚢🌍✅
-
-Para fazer o deploy do projeto em um ambiente de produção, siga as etapas abaixo:
-
-
-1. Atualize as variáveis de ambiente no arquivo `docker-compose.yml` conforme necessário.
-
-2. Execute o comando abaixo para criar a imagem do Docker:
-
-```bash
-docker-compose build -f docker-compose.prod.yml
-```
-
-3. Inicie os containers:
-
-```bash
-docker-compose up -f docker-compose.prod.yml -d
-```
-
----
 
 ## Testes 🧪✅📋 (Ainda em Desenvolvimento)
 
