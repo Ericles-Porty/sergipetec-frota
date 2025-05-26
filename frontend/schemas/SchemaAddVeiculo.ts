@@ -2,9 +2,9 @@ import { z } from 'zod'
 
 export const schemaAddVeiculo = z.object({
 	modelo: z.string()
-		.nonempty('Nome da veiculo é obrigatório')
-		.min(3, 'Nome da veiculo deve ter no mínimo 3 caracteres')
-		.max(100, 'Nome da veiculo deve ter no máximo 100 caracteres'),
+		.nonempty('Modelo é obrigatório')
+		.min(3, 'Modelo deve ter no mínimo 3 caracteres')
+		.max(100, 'Modelo deve ter no máximo 100 caracteres'),
 	fabricante: z.string()
 		.nonempty('Fabricante é obrigatório')
 		.min(3, 'Fabricante deve ter no mínimo 3 caracteres')
@@ -46,57 +46,58 @@ export const schemaAddVeiculo = z.object({
 		message: 'Tipo de combustível deve ser gasolina, etanol, diesel ou flex'
 	}).optional(),
 
-}).superRefine((data, ctx) => {
-	if (data.tipo === 'Moto') {
-		if (data.cilindrada === undefined) {
-			ctx.addIssue({
-				path: ['cilindrada'],
-				code: z.ZodIssueCode.custom,
-				message: 'Cilindrada é obrigatória para Motos',
-			});
-		}
+})
+// .superRefine((data, ctx) => {
+// 	if (data.tipo === 'Moto') {
+// 		if (data.cilindrada === undefined) {
+// 			ctx.addIssue({
+// 				path: ['cilindrada'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Cilindrada é obrigatória para Motos',
+// 			});
+// 		}
 
-		if (data.quantidadePortas !== undefined) {
-			ctx.addIssue({
-				path: ['quantidadePortas'],
-				code: z.ZodIssueCode.custom,
-				message: 'Quantidade de portas não se aplica a motos',
-			});
-		}
+// 		if (data.quantidadePortas !== undefined) {
+// 			ctx.addIssue({
+// 				path: ['quantidadePortas'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Quantidade de portas não se aplica a motos',
+// 			});
+// 		}
 
-		if (data.tipoCombustivel !== undefined) {
-			ctx.addIssue({
-				path: ['tipoCombustivel'],
-				code: z.ZodIssueCode.custom,
-				message: 'Tipo de combustível não se aplica a motos',
-			});
-		}
-	}
+// 		if (data.tipoCombustivel !== undefined) {
+// 			ctx.addIssue({
+// 				path: ['tipoCombustivel'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Tipo de combustível não se aplica a motos',
+// 			});
+// 		}
+// 	}
 
-	if (data.tipo === 'Carro') {
-		if (data.quantidadePortas === undefined) {
-			ctx.addIssue({
-				path: ['quantidadePortas'],
-				code: z.ZodIssueCode.custom,
-				message: 'Quantidade de portas é obrigatória para carros',
-			});
-		}
+// 	if (data.tipo === 'Carro') {
+// 		if (data.quantidadePortas === undefined) {
+// 			ctx.addIssue({
+// 				path: ['quantidadePortas'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Quantidade de portas é obrigatória para carros',
+// 			});
+// 		}
 
-		if (data.tipoCombustivel === undefined) {
-			ctx.addIssue({
-				path: ['tipoCombustivel'],
-				code: z.ZodIssueCode.custom,
-				message: 'Tipo de combustível é obrigatório para carros',
-			});
-		}
+// 		if (data.tipoCombustivel === undefined) {
+// 			ctx.addIssue({
+// 				path: ['tipoCombustivel'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Tipo de combustível é obrigatório para carros',
+// 			});
+// 		}
 
-		if (data.cilindrada !== undefined) {
-			ctx.addIssue({
-				path: ['cilindrada'],
-				code: z.ZodIssueCode.custom,
-				message: 'Cilindrada não se aplica a carros',
-			});
-		}
-	}
-});
+// 		if (data.cilindrada !== undefined) {
+// 			ctx.addIssue({
+// 				path: ['cilindrada'],
+// 				code: z.ZodIssueCode.custom,
+// 				message: 'Cilindrada não se aplica a carros',
+// 			});
+// 		}
+// 	}
+// });
 

@@ -1,11 +1,12 @@
 import type { ApiResponseWrapper } from "~/types/ApiResponseWrapper"
+import type Veiculo from "~/types/Veiculo"
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event)
 	const runtimeConfig = useRuntimeConfig(event)
 	const endpoint = runtimeConfig.public.apiBaseUrl + '/api/veiculos'
 
-	const response = await $fetch<ApiResponseWrapper<null>>(endpoint, {
+	const response = await $fetch<ApiResponseWrapper<Veiculo | null>>(endpoint, {
 		method: 'POST',
 		body: body,
 		headers: {
@@ -21,8 +22,8 @@ export default defineEventHandler(async (event) => {
 	return {
 		success: response.success,
 		code: response.code,
-		data: null,
+		data: response.data,
 		message: response.message,
 		errors: response.errors
-	} as ApiResponseWrapper<null>
+	} as ApiResponseWrapper<Veiculo>
 })

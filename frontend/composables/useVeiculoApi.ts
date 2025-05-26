@@ -64,56 +64,68 @@ export function useVeiculoApi() {
 		return response
 	}
 
-	async function addVeiculo(
-		veiculo: z.output<typeof schemaAddVeiculo>
+	async function addVeiculo(veiculo: z.output<typeof schemaAddVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
 
-	): Promise<ApiResponseWrapper<null>> {
-		{
-			const response = await $fetch<ApiResponseWrapper<null>>(baseEndpoint, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				ignoreResponseError: true,
-				body: {
-					...veiculo,
-				},
-			})
+		const body = tratarBody(veiculo)
 
-			return response
+		const response = await $fetch<ApiResponseWrapper<Veiculo | null>>(baseEndpoint, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			ignoreResponseError: true,
+			body: body,
+		})
+
+		if (response.data) {
+			veiculos.value.push(response.data)
 		}
+
+		return response
+
 	}
 
 	async function deleteVeiculo(id: number): Promise<ApiResponseWrapper<null>> {
-		{
-			const response = await $fetch<ApiResponseWrapper<null>>(`${baseEndpoint}/${id}`, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				ignoreResponseError: true,
-			})
-
-			return response
-		}
-	}
-
-	async function updateVeiculo(id: number, nome: string): Promise<ApiResponseWrapper<null>> {
 
 		const response = await $fetch<ApiResponseWrapper<null>>(`${baseEndpoint}/${id}`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			ignoreResponseError: true,
+		})
+
+		return response
+
+	}
+
+	async function updateVeiculo(id: number, veiculo: z.output<typeof schemaAddVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
+		const body = tratarBody(veiculo)
+		const response = await $fetch<ApiResponseWrapper<Veiculo | null>>(`${baseEndpoint}/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			ignoreResponseError: true,
-			body: {
-				id,
-				nome,
-			},
+			body: body,
 		})
 
 		return response
 
+	}
+
+	function tratarBody(veiculo: z.output<typeof schemaAddVeiculo>) {
+		return {
+			modelo: veiculo.modelo,
+			fabricante: veiculo.fabricante,
+			ano: veiculo.ano,
+			preco: Number(veiculo.preco.replace(/[^\d,-]/g, '').replace(',', '.')),
+			cor: veiculo.cor,
+			tipo: veiculo.tipo.toUpperCase(),
+			cilindrada: veiculo.cilindrada ? Number(veiculo.cilindrada) : undefined,
+			quantidadePortas: veiculo.quantidadePortas ? Number(veiculo.quantidadePortas) : undefined,
+			tipoCombustivel: veiculo.tipoCombustivel ? veiculo.tipoCombustivel.toUpperCase() : undefined,
+		}
 	}
 
 	return {

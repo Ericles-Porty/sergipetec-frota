@@ -21,6 +21,7 @@ const filters = reactive({
 	cor: '',
 	tipo: '',
 })
+
 function aplicarFiltros() {
 	const { id, modelo, ano, cor, tipo } = filters
 
@@ -30,7 +31,6 @@ function aplicarFiltros() {
 		getVeiculos({ modelo, ano, cor, tipo })
 	}
 }
-
 
 function limparFiltros() {
 	filters.id = undefined
