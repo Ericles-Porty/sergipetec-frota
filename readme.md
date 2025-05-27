@@ -3,7 +3,7 @@
 
 ## Sobre o Projeto 🎯✨📋
 
-Desafio proposto pela empresa Sergipetec para a vaga de Analista de sistemas.
+Desafio proposto pela empresa Sergipetec para a vaga de desenvolvedor de sistemas.
 
 O projeto é um sistema de frota desenvolvido com Java, Spring Boot, Nuxt.js, Postgres e Docker.
 
