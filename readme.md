@@ -9,6 +9,15 @@ O projeto é um sistema de frota desenvolvido com Java, Spring Boot, Nuxt.js, Po
 
 ---
 
+## Apresentação do Frontend
+![Apresentação do Frontend](docs/frontend.gif)
+
+## Apresentação dos endpoints no Http Client Bruno 
+![Apresentação dos endpoints no Http Client Bruno](docs/bruno.gif) 
+
+## Diagrama do Banco de Dados
+![Diagrama do Banco de Dados](docs/diagrama.png)
+
 ## Requisitos Necessários ✅🛠️📦
 
 Antes de configurar e executar o projeto, certifique-se de ter os seguintes requisitos instalados:
@@ -51,10 +60,19 @@ Backend executando em [http://localhost:8080](http://localhost:8080).
 
 1. Inicie o frontend:
 
+Modo de desenvolvimento:
 ```bash
 cd frontend
 yarn install
 yarn run dev
+```
+
+Modo de produção:
+```bash
+cd frontend
+yarn install
+yarn run build
+node .\output\server\index.mjs
 ```
 
 Frontend executando em [http://localhost:3000](http://localhost:3000).
