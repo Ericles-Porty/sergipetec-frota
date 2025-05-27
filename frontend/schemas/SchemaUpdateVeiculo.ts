@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
 export const schemaUpdateVeiculo = z.object({
+	id: z.number()
+		.int('ID deve ser um número inteiro')
+		.positive('ID deve ser um número positivo')
+		.nonnegative('ID não pode ser negativo'),
 	modelo: z.string()
 		.nonempty('Modelo é obrigatório')
 		.min(3, 'Modelo deve ter no mínimo 3 caracteres')

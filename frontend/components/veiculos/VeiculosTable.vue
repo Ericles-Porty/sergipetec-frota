@@ -26,6 +26,7 @@ const UDropdownMenu = resolveComponent('UDropdownMenu')
 
 const emit = defineEmits<{
 	(e: 'deletedVehicleEvent', event: string): void
+	(e: 'openUpdateVehicleModalEvent', veiculo: Veiculo): void
 }>()
 
 type VeiculoTable = {
@@ -36,6 +37,9 @@ type VeiculoTable = {
 	preco: number,
 	cor: string,
 	tipo: string,
+	quantidadePortas?: number,
+	cilindrada?: number,
+	tipoCombustivel?: 'Gasolina' | 'Etanol' | 'Diesel' | 'Flex'
 }
 
 const dataTable = computed<VeiculoTable[]>(
@@ -49,6 +53,9 @@ const dataTable = computed<VeiculoTable[]>(
 				preco: veiculo.preco,
 				cor: veiculo.cor,
 				tipo: veiculo.tipo,
+				quantidadePortas: veiculo.quantidadePortas,
+				cilindrada: veiculo.cilindrada,
+				tipoCombustivel: veiculo.tipoCombustivel
 			} as VeiculoTable
 		})
 )
@@ -95,6 +102,59 @@ const columns: TableColumn<VeiculoTable>[] = [
 		header: ({ column }) => getHeader(column, 'Tipo'),
 		cell: ({ row }) => row.getValue('tipo')
 	},
+	{
+		accessorKey: 'quantidadePortas',
+		header: ({ column }) => getHeader(column, 'Quantidade de Portas'),
+		cell: ({ row }) => {
+			const quantidadePortas = row.getValue('quantidadePortas')
+			return quantidadePortas !== undefined ? quantidadePortas : '-'
+		}
+	},
+	{
+		accessorKey: 'cilindrada',
+		header: ({ column }) => getHeader(column, 'Cilindrada'),
+		cell: ({ row }) => {
+			const cilindrada = row.getValue('cilindrada')
+			return cilindrada !== undefined ? `${cilindrada} cc` : '-'
+		}
+	},
+	{
+		accessorKey: 'tipoCombustivel',
+		header: ({ column }) => getHeader(column, 'Tipo de Combustível'),
+		cell: ({ row }) => {
+			const tipoCombustivel = row.getValue('tipoCombustivel')
+			return tipoCombustivel !== undefined ? tipoCombustivel : '-'
+		}
+	},
+	{
+		accessorKey: 'editar',
+		header: 'Editar',
+		cell: ({ row }) => {
+			const veiculo = row.original as VeiculoTable
+			return h(UButton, {
+				icon: 'i-lucide-edit-2',
+				color: 'primary',
+				variant: 'ghost',
+				class: 'text-blue-500 hover:text-blue-700 focus:text-blue-700 cursor-pointer',
+				onClick: () => {
+					emit('openUpdateVehicleModalEvent', {
+						id: veiculo.id,
+						modelo: veiculo.modelo,
+						fabricante: veiculo.fabricante,
+						ano: veiculo.ano,
+						preco: veiculo.preco,
+						cor: veiculo.cor,
+						tipo: veiculo.tipo,
+						quantidadePortas: veiculo.quantidadePortas,
+						cilindrada: veiculo.cilindrada,
+						tipoCombustivel: veiculo.tipoCombustivel
+					} as Veiculo)
+				},
+				'aria-label': `Editar ${veiculo.modelo} ${veiculo.ano} ${veiculo.cor}`
+			})
+		}
+	}
+	,
 	{
 		accessorKey: 'delete',
 		header: 'Apagar',
@@ -155,6 +215,18 @@ const sorting: ColumnSort[] = [
 	},
 	{
 		id: 'tipo',
+		desc: false
+	},
+	{
+		id: 'quantidadePortas',
+		desc: false
+	},
+	{
+		id: 'cilindrada',
+		desc: false
+	},
+	{
+		id: 'tipoCombustivel',
 		desc: false
 	}
 ]

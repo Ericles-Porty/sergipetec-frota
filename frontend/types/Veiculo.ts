@@ -7,6 +7,9 @@ type VeiculoParams = {
 	preco: number
 	cor: string
 	tipo: string
+	cilindrada?: number
+	quantidadePortas?: number
+	tipoCombustivel?: string
 }
 
 export default class Veiculo {
@@ -17,8 +20,11 @@ export default class Veiculo {
 	public preco: number;
 	public cor: string;
 	public tipo: string;
+	public cilindrada?: number;
+	public quantidadePortas?: number;
+	public tipoCombustivel?: string;
 
-	constructor({ id, modelo, fabricante, ano, preco, cor, tipo }: VeiculoParams
+	constructor({ id, modelo, fabricante, ano, preco, cor, tipo, cilindrada, quantidadePortas, tipoCombustivel }: VeiculoParams
 	) {
 		this.id = id
 		this.modelo = modelo
@@ -27,5 +33,8 @@ export default class Veiculo {
 		this.preco = preco
 		this.cor = cor
 		this.tipo = tipo
+		this.cilindrada = cilindrada
+		this.quantidadePortas = quantidadePortas
+		this.tipoCombustivel = tipoCombustivel
 	}
 }

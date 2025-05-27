@@ -9,6 +9,9 @@ type VeiculosResponse = {
 	preco: number
 	cor: string
 	tipo: string
+	cilindrada?: number
+	quantidadePortas?: number
+	tipoCombustivel?: string
 }
 
 
@@ -49,7 +52,10 @@ function mapVeiculosResponseToVeiculos(responses: VeiculosResponse[]): Veiculo[]
 			ano: veiculo.ano,
 			preco: veiculo.preco,
 			cor: veiculo.cor,
-			tipo: veiculo.tipo.charAt(0).toUpperCase() + veiculo.tipo.slice(1).toLowerCase()
+			tipo: veiculo.tipo.charAt(0).toUpperCase() + veiculo.tipo.slice(1).toLowerCase(),
+			cilindrada: veiculo.cilindrada,
+			quantidadePortas: veiculo.quantidadePortas,
+			tipoCombustivel: veiculo.tipoCombustivel ? veiculo.tipoCombustivel.charAt(0).toUpperCase() + veiculo.tipoCombustivel.slice(1).toLowerCase() : undefined
 		}
 	})
 }

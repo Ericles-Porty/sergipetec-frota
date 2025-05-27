@@ -4,6 +4,7 @@ import type { ApiResponseWrapper } from '~/types/ApiResponseWrapper'
 import type Veiculo from '~/types/Veiculo'
 
 import type { z } from 'zod'
+import type { schemaUpdateVeiculo } from '~/schemas/SchemaUpdateVeiculo'
 
 const veiculos = ref<Veiculo[]>([])
 
@@ -43,6 +44,7 @@ export function useVeiculoApi() {
 		})
 
 		veiculos.value = response.data || []
+		console.log('Response from getVeiculos:', response)
 
 		return response
 	}
@@ -66,7 +68,7 @@ export function useVeiculoApi() {
 
 	async function addVeiculo(veiculo: z.output<typeof schemaAddVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
 
-		const body = tratarBody(veiculo)
+		const body = createAddBody(veiculo)
 
 		const response = await $fetch<ApiResponseWrapper<Veiculo | null>>(baseEndpoint, {
 			method: 'POST',
@@ -99,8 +101,8 @@ export function useVeiculoApi() {
 
 	}
 
-	async function updateVeiculo(id: number, veiculo: z.output<typeof schemaAddVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
-		const body = tratarBody(veiculo)
+	async function updateVeiculo(id: number, veiculo: z.output<typeof schemaUpdateVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
+		const body = createUpdateBody(veiculo)
 		const response = await $fetch<ApiResponseWrapper<Veiculo | null>>(`${baseEndpoint}/${id}`, {
 			method: 'PUT',
 			headers: {
@@ -109,12 +111,14 @@ export function useVeiculoApi() {
 			ignoreResponseError: true,
 			body: body,
 		})
-
+		console.log('Response from updateVeiculo:', response)
+		console.log('Updated veiculo:', veiculo)
+		console.log('Request body:', body)
 		return response
 
 	}
 
-	function tratarBody(veiculo: z.output<typeof schemaAddVeiculo>) {
+	function createAddBody(veiculo: z.output<typeof schemaAddVeiculo>) {
 		return {
 			modelo: veiculo.modelo,
 			fabricante: veiculo.fabricante,
@@ -126,6 +130,31 @@ export function useVeiculoApi() {
 			quantidadePortas: veiculo.quantidadePortas ? Number(veiculo.quantidadePortas) : undefined,
 			tipoCombustivel: veiculo.tipoCombustivel ? veiculo.tipoCombustivel.toUpperCase() : undefined,
 		}
+	}
+
+	function createUpdateBody(veiculo: z.output<typeof schemaUpdateVeiculo>) {
+		const body = {
+			id: veiculo.id,
+			modelo: veiculo.modelo,
+			fabricante: veiculo.fabricante,
+			ano: veiculo.ano,
+			preco: Number(veiculo.preco),
+			cor: veiculo.cor,
+			tipo: veiculo.tipo.toUpperCase(),
+			cilindrada: veiculo.cilindrada ? Number(veiculo.cilindrada) : undefined,
+			quantidadePortas: veiculo.quantidadePortas ? Number(veiculo.quantidadePortas) : undefined,
+			tipoCombustivel: veiculo.tipoCombustivel ? veiculo.tipoCombustivel.toUpperCase() : undefined,
+		}
+		if (veiculo.tipo === 'Moto') {
+			delete body.quantidadePortas
+			delete body.tipoCombustivel
+		}
+
+		if (veiculo.tipo === 'Carro') {
+			delete body.cilindrada
+		}
+
+		return body
 	}
 
 	return {

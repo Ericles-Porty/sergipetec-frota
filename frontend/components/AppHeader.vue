@@ -12,7 +12,7 @@ const menuItems = [
 </script>
 
 <template>
-	<header class="w-full py-10 flex flex-row justify-center items-center">
+	<header class="w-full py-8 flex flex-row justify-center items-center">
 		<nav>
 			<div class="wrapper">
 				<ul class="flex flex-row gap-10 text-2xl">

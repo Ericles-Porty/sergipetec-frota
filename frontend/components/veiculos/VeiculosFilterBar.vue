@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 
-const {refreshVeiculos ,getVeiculos, getVeiculoPorId } = useVeiculoApi()
+const { refreshVeiculos, getVeiculos, getVeiculoPorId } = useVeiculoApi()
 
 const filters = reactive({
 	id: undefined as number | undefined,
@@ -28,7 +28,7 @@ function aplicarFiltros() {
 	if (id) {
 		getVeiculoPorId(id)
 	} else {
-		getVeiculos({ modelo, ano, cor, tipo })
+		getVeiculos({ modelo, ano, cor, tipo: tipo.toUpperCase() })
 	}
 }
 
