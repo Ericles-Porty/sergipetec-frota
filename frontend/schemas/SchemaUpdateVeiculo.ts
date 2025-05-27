@@ -21,9 +21,9 @@ export const schemaUpdateVeiculo = z.object({
 		.nonempty('Preço é obrigatório')
 		.refine((value) => {
 			const numero = parseFloat(value.replace(/[^\d,-]/g, '').replace(',', '.'))
-			return !isNaN(numero) && numero >= 0
+			return !isNaN(numero) && numero >= 0 && numero <= 99999999.99
 		}, {
-			message: 'Preço deve ser um número válido e maior ou igual a 0',
+			message: 'Preço deve ser um número válido e maior ou igual a 0 e menor ou igual a 99.999.999,99',
 		}),
 	cor: z.string()
 		.nonempty('Cor é obrigatória')
