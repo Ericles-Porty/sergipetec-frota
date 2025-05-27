@@ -180,7 +180,6 @@ const onSubmitAddVeiculo = async (event: FormSubmitEvent<z.output<typeof schemaA
 	stateAddVeiculo.quantidadePortas = 1
 	stateAddVeiculo.tipoCombustivel = undefined
 
-	console.log('Veículo adicionado com sucesso:', response.data)
 	emit('newVehicleAddedEvent', `${response.data?.modelo} ${response.data?.ano} ${response.data?.cor}`)
 }
 

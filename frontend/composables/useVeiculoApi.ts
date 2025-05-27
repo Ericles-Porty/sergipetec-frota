@@ -44,7 +44,6 @@ export function useVeiculoApi() {
 		})
 
 		veiculos.value = response.data || []
-		console.log('Response from getVeiculos:', response)
 
 		return response
 	}
@@ -62,7 +61,7 @@ export function useVeiculoApi() {
 		})
 
 		veiculos.value = response.data ? [response.data] : []
-
+		
 		return response
 	}
 
@@ -82,9 +81,7 @@ export function useVeiculoApi() {
 		if (response.data) {
 			veiculos.value.push(response.data)
 		}
-
 		return response
-
 	}
 
 	async function deleteVeiculo(id: number): Promise<ApiResponseWrapper<null>> {
@@ -96,9 +93,7 @@ export function useVeiculoApi() {
 			},
 			ignoreResponseError: true,
 		})
-
 		return response
-
 	}
 
 	async function updateVeiculo(id: number, veiculo: z.output<typeof schemaUpdateVeiculo>): Promise<ApiResponseWrapper<Veiculo | null>> {
@@ -111,11 +106,7 @@ export function useVeiculoApi() {
 			ignoreResponseError: true,
 			body: body,
 		})
-		console.log('Response from updateVeiculo:', response)
-		console.log('Updated veiculo:', veiculo)
-		console.log('Request body:', body)
 		return response
-
 	}
 
 	function createAddBody(veiculo: z.output<typeof schemaAddVeiculo>) {

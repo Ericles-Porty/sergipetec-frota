@@ -35,9 +35,7 @@ const deletedVehicleEventHandler = async (event: string) => {
 }
 
 const openUpdateVehicleModalEventHandler = async (veiculo: Veiculo) => {
-	console.log('openUpdateVehicleModalEventHandler', veiculo)
 	veiculoParaAtualizar.value = veiculo;
-	console.log('modal aberto?', isUpdateModalOpen.value)
 	isUpdateModalOpen.value = true;
 }
 
@@ -54,13 +52,11 @@ const newVehicleUpdatedEventHandler = async (event: string) => {
 }
 
 const closeUpdateVehicleModalEventHandler = () => {
-	console.log('closeUpdateVehicleModalEventHandler')
 	isUpdateModalOpen.value = false;
 	veiculoParaAtualizar.value = null;
 }
 
 watch(isUpdateModalOpen, (newValue) => {
-	console.log('isUpdateModalOpen changed:', newValue)
 	if (newValue === false) {
 		veiculoParaAtualizar.value = null;
 	}
@@ -73,14 +69,11 @@ watch(isUpdateModalOpen, (newValue) => {
 		<h1 class="text-4xl">Listagem de veiculos</h1>
 
 		<AdicionarVeiculoModalButton @new-vehicle-added-event="newVehicleAddedEventHandler" />
-		<AtualizarVeiculoModalButton 
-			:veiculo=veiculoParaAtualizar 
-			:is-update-modal-open=isUpdateModalOpen
+		<AtualizarVeiculoModalButton :veiculo=veiculoParaAtualizar :is-update-modal-open=isUpdateModalOpen
 			@new-vehicle-updated-event="newVehicleUpdatedEventHandler"
 			@close-update-vehicle-modal-event="closeUpdateVehicleModalEventHandler" />
 		<VeiculosFilterBar />
-		<VeiculosTable 
-			@deleted-vehicle-event="deletedVehicleEventHandler"
+		<VeiculosTable @deleted-vehicle-event="deletedVehicleEventHandler"
 			@open-update-vehicle-modal-event="openUpdateVehicleModalEventHandler" />
 	</div>
 </template>

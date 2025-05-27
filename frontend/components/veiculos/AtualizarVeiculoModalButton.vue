@@ -125,15 +125,12 @@ const isUpdateModalOpenLocal = ref(props.isUpdateModalOpen)
 
 
 watch(() => props.isUpdateModalOpen, (val) => {
-	console.log('watch isUpdateModalOpen', val, isUpdateModalOpenLocal.value)
 	isUpdateModalOpenLocal.value = val
 })
 
 watch(isUpdateModalOpenLocal, (val) => {
-	console.log('watch isUpdateModalOpenLocal', val , props.isUpdateModalOpen)
 	if (!val) {
 		emit('closeUpdateVehicleModalEvent')
-		console.log('isUpdateModalOpenLocal mudou para false, emitindo evento')
 	}
 })
 
@@ -184,7 +181,6 @@ const emit = defineEmits<{
 }>()
 
 const onSubmitUpdateVeiculo = async (event: FormSubmitEvent<z.output<typeof schemaUpdateVeiculo>>) => {
-	console.log('onSubmitUpdateVeiculo', event.data)
 	const response = await updateVeiculo(event.data.id, event.data)
 
 	if (response.success === false) {
@@ -209,7 +205,6 @@ const onSubmitUpdateVeiculo = async (event: FormSubmitEvent<z.output<typeof sche
 	stateUpdateVeiculo.quantidadePortas = 1
 	stateUpdateVeiculo.tipoCombustivel = undefined
 
-	console.log('Veículo atualizado com sucesso:', response.data)
 	emit('newVehicleUpdatedEvent', `${response.data?.modelo} ${response.data?.ano} ${response.data?.cor}`)
 }
 
