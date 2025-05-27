@@ -32,19 +32,19 @@ services:
     networks:
       - frota-network
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frota-frontend
-    ports:
-      - "5173:5173"
-    networks:
-      - frota-network
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/app:cached
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: frota-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   networks:
+  #     - frota-network
+  #   depends_on:
+  #     - backend
+  #   volumes:
+  #     - ./frontend:/app:cached
 
 networks:
   frota-network:
