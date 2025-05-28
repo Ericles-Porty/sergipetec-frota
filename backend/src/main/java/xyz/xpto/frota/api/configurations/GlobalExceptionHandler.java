@@ -96,7 +96,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InvalidDataAccessResourceUsageException.class)
 	public ResponseEntity<StandardResponse<Void>> handleInvalidDataAccessResourceUsageException(
 			InvalidDataAccessResourceUsageException ex) {
-		System.out.println(ex);
 		return StandardResponse.error("Houve um erro ao acessar o banco de dados.");
 	}
 

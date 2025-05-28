@@ -82,8 +82,6 @@ public class VeiculoService {
 					.tipoCombustivel(TipoCombustivel.valueOf(request.getTipoCombustivel())).build();
 
 			VeiculoDTO veiculoCriado = veiculoRepository.salvar(carro);
-			System.out.println("Veiculo criado: " + veiculoCriado);
-			System.out.println(veiculoCriado.getId());
 			carro.setId(veiculoCriado.getId());
 			var carroCriado = carroRepository.salvar(carro);
 
